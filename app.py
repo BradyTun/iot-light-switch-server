@@ -1,9 +1,14 @@
-from flask import Flask, request, jsonify
+from flask import Flask, render_template, request, jsonify
 
 app = Flask(__name__)
 
 # Store the light's state (default is off)
 light_state = {"status": "off"}
+
+@app.route('/')
+def index():
+    """Render the control panel."""
+    return render_template('index.html', light_state=light_state['status'])
 
 @app.route('/light', methods=['GET'])
 def get_light_status():
